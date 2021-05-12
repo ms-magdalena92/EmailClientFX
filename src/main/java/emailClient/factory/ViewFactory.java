@@ -3,6 +3,7 @@ package emailClient.factory;
 import emailClient.App;
 import emailClient.controller.BaseController;
 import emailClient.controller.LoginWindowController;
+import emailClient.controller.MainWindowController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,11 @@ public class ViewFactory {
     public void showLoginWindow() {
         BaseController controller = new LoginWindowController(this);
         initializeStage(controller, false);
+    }
+
+    public void showMainWindow() {
+        BaseController controller = new MainWindowController(this);
+        initializeStage(controller, true);
     }
 
     private void initializeStage(BaseController baseController, boolean resizable) {
@@ -32,7 +38,7 @@ public class ViewFactory {
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(resizable);
         stage.show();
     }
 }
