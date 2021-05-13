@@ -28,26 +28,36 @@ public class LoginWindowController extends BaseController {
 
     @FXML
     void login() {
-        EmailAccount emailAccount = new EmailAccount(emailAddressInput.getText(), passwordInput.getText());
-        LoginService loginService = new LoginService(emailAccount);
-        LoginResult loginResult = loginService.login();
+        if (areLoginInputsValid()) {
+            EmailAccount emailAccount = new EmailAccount(emailAddressInput.getText(), passwordInput.getText());
+            LoginService loginService = new LoginService(emailAccount);
+            LoginResult loginResult = loginService.login();
 
-        switch (loginResult) {
-            case SUCCESS:
-                viewFactory.showMainWindow();
-                closeLoginWindow();
-                break;
-            case FAILED_BY_CREDENTIALS:
-                errorTextField.setText("Incorrect email address or password!");
-                break;
-            case FAILED_BY_UNEXPECTED_ERROR:
-                errorTextField.setText("Unexpected error! Please try again later.");
-                break;
+            switch (loginResult) {
+                case SUCCESS:
+                    viewFactory.showMainWindow();
+                    closeLoginWindow();
+                    break;
+                case FAILED_BY_CREDENTIALS:
+                    errorTextField.setText("Incorrect email address or password!");
+                    break;
+                case FAILED_BY_UNEXPECTED_ERROR:
+                    errorTextField.setText("Unexpected error! Please try again later.");
+                    break;
+            }
         }
     }
 
     private void closeLoginWindow() {
         Stage stage = (Stage) errorTextField.getScene().getWindow();
         viewFactory.closeStage(stage);
+    }
+
+    private boolean areLoginInputsValid() {
+        if (emailAddressInput.getText().isEmpty() || passwordInput.getText().isEmpty()) {
+            errorTextField.setText("Email address and password cannot be empty.");
+            return false;
+        }
+        return true;
     }
 }
