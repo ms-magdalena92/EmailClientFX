@@ -41,10 +41,17 @@ public class FetchFolderService extends Service<Void> {
             foldersRoot.getChildren().add(emailFolder);
             foldersRoot.setExpanded(true);
 
+            fetchFoldersMessages(folder, emailFolder);
+
             if(folder.getType() == Folder.HOLDS_FOLDERS) {
                 Folder[] subFolders =  folder.list();
                 handleFolders(subFolders, emailFolder);
             }
         }
+    }
+
+    private void fetchFoldersMessages(Folder folder, EmailFolder emailFolder) {
+        FetchMessageService fetchMessageService = new FetchMessageService(folder, emailFolder);
+        fetchMessageService.start();
     }
 }
