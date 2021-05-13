@@ -11,4 +11,6 @@ module emailClient {
     exports emailClient.controller;
     exports emailClient.factory;
     opens emailClient.controller to javafx.fxml;
+    exports emailClient.enums;
+    opens emailClient.enums to javafx.fxml;
 }
