@@ -4,6 +4,7 @@ import emailClient.App;
 import emailClient.controller.BaseController;
 import emailClient.controller.LoginWindowController;
 import emailClient.controller.MainWindowController;
+import emailClient.service.EmailManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,13 +14,19 @@ import java.io.IOException;
 
 public class ViewFactory {
 
+    private final EmailManager emailManager;
+
+    public ViewFactory(EmailManager emailManager) {
+        this.emailManager = emailManager;
+    }
+
     public void showLoginWindow() {
-        BaseController controller = new LoginWindowController(this);
+        BaseController controller = new LoginWindowController(this, emailManager);
         initializeStage(controller, false);
     }
 
     public void showMainWindow() {
-        BaseController controller = new MainWindowController(this);
+        BaseController controller = new MainWindowController(this, emailManager);
         initializeStage(controller, true);
     }
 

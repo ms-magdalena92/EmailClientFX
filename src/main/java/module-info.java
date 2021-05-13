@@ -13,4 +13,8 @@ module emailClient {
     opens emailClient.controller to javafx.fxml;
     exports emailClient.enums;
     opens emailClient.enums to javafx.fxml;
+    exports emailClient.service;
+    opens emailClient.service to javafx.fxml;
+    exports emailClient.model;
+    opens emailClient.model to javafx.fxml;
 }

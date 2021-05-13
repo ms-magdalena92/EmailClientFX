@@ -9,10 +9,13 @@ import javax.mail.*;
 
 public class LoginService extends Service<LoginResult> {
 
-    EmailAccount emailAccount;
+    private final EmailAccount emailAccount;
 
-    public LoginService(EmailAccount emailAccount) {
+    private final EmailManager emailManager;
+
+    public LoginService(EmailAccount emailAccount, EmailManager emailManager) {
         this.emailAccount = emailAccount;
+        this.emailManager = emailManager;
     }
 
     private LoginResult login() {
@@ -30,6 +33,7 @@ public class LoginService extends Service<LoginResult> {
                     emailAccount.getEmailAddress(),
                     emailAccount.getPassword());
             emailAccount.setStore(store);
+            emailManager.addEmailAccount(emailAccount);
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
             return LoginResult.FAILED_BY_NETWORK;
