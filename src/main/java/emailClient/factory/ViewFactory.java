@@ -41,4 +41,8 @@ public class ViewFactory {
         stage.setResizable(resizable);
         stage.show();
     }
+
+    public void closeStage(Stage stage) {
+        stage.close();
+    }
 }
