@@ -5,6 +5,7 @@ import emailClient.factory.ViewFactory;
 import emailClient.model.EmailAccount;
 import emailClient.service.LoginService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -22,6 +23,9 @@ public class LoginWindowController extends BaseController {
     @FXML
     private Label errorTextField;
 
+    @FXML
+    private Button loginButton;
+
     public LoginWindowController(ViewFactory viewFactory) {
         super(viewFactory, LOGIN_VIEW_FILE_NAME);
     }
@@ -29,6 +33,7 @@ public class LoginWindowController extends BaseController {
     @FXML
     void login() {
         if (areLoginInputsValid()) {
+            loginButton.setDisable(true);
             EmailAccount emailAccount = new EmailAccount(emailAddressInput.getText(), passwordInput.getText());
             LoginService loginService = new LoginService(emailAccount);
             loginService.start();
@@ -43,9 +48,11 @@ public class LoginWindowController extends BaseController {
                         break;
                     case FAILED_BY_CREDENTIALS:
                         errorTextField.setText("Incorrect email address or password!");
+                        loginButton.setDisable(false);
                         break;
                     case FAILED_BY_UNEXPECTED_ERROR:
                         errorTextField.setText("Unexpected error! Please try again later.");
+                        loginButton.setDisable(false);
                         break;
                 }
             });
