@@ -32,13 +32,19 @@ public class FetchFolderService extends Service<Void> {
 
     private void fetchFolders() throws MessagingException {
         Folder[] folders = store.getDefaultFolder().list();
-        handleFolders(folders);
+        handleFolders(folders, foldersRoot);
     }
 
-    private void handleFolders(Folder[] folders) {
+    private void handleFolders(Folder[] folders, EmailFolder emailFolder) throws MessagingException {
         for (Folder folder : folders) {
             EmailFolder emailTreeItem = new EmailFolder(folder.getName());
-            foldersRoot.getChildren().add((emailTreeItem));
+            foldersRoot.getChildren().add(emailTreeItem);
+            foldersRoot.setExpanded(true);
+
+            if(folder.getType() == Folder.HOLDS_FOLDERS) {
+                Folder[] subFolders =  folder.list();
+                handleFolders(subFolders, emailTreeItem);
+            }
         }
     }
 }
