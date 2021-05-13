@@ -1,6 +1,7 @@
 package emailClient.controller;
 
 import emailClient.factory.ViewFactory;
+import emailClient.service.EmailManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,7 +36,7 @@ public class MainWindowController extends BaseController {
     @FXML
     private WebView emailWebView;
 
-    public MainWindowController(ViewFactory viewFactory) {
-        super(viewFactory, MAIN_VIEW_FILE_NAME);
+    public MainWindowController(ViewFactory viewFactory, EmailManager emailManager) {
+        super(viewFactory, emailManager, MAIN_VIEW_FILE_NAME);
     }
 }

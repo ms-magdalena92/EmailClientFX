@@ -1,6 +1,7 @@
 package emailClient.controller;
 
 import emailClient.factory.ViewFactory;
+import emailClient.service.EmailManager;
 
 public abstract class BaseController {
 
@@ -8,8 +9,11 @@ public abstract class BaseController {
 
     private final String viewFxmlFileName;
 
-    public BaseController(ViewFactory viewFactory, String viewFxmlFileName) {
+    protected EmailManager emailManager;
+
+    public BaseController(ViewFactory viewFactory, EmailManager emailManager, String viewFxmlFileName) {
         this.viewFactory = viewFactory;
+        this.emailManager = emailManager;
         this.viewFxmlFileName = viewFxmlFileName;
     }
 

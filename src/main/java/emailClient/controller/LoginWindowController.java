@@ -3,6 +3,7 @@ package emailClient.controller;
 import emailClient.enums.LoginResult;
 import emailClient.factory.ViewFactory;
 import emailClient.model.EmailAccount;
+import emailClient.service.EmailManager;
 import emailClient.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,8 +27,8 @@ public class LoginWindowController extends BaseController {
     @FXML
     private Button loginButton;
 
-    public LoginWindowController(ViewFactory viewFactory) {
-        super(viewFactory, LOGIN_VIEW_FILE_NAME);
+    public LoginWindowController(ViewFactory viewFactory, EmailManager emailManager) {
+        super(viewFactory, emailManager, LOGIN_VIEW_FILE_NAME);
     }
 
     @FXML
