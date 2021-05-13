@@ -36,7 +36,7 @@ public class LoginWindowController extends BaseController {
         if (areLoginInputsValid()) {
             loginButton.setDisable(true);
             EmailAccount emailAccount = new EmailAccount(emailAddressInput.getText(), passwordInput.getText());
-            LoginService loginService = new LoginService(emailAccount);
+            LoginService loginService = new LoginService(emailAccount, emailManager);
             loginService.start();
 
             loginService.setOnSucceeded(event -> {
