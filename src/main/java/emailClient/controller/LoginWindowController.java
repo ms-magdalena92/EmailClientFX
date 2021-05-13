@@ -7,6 +7,7 @@ import emailClient.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginWindowController extends BaseController {
 
@@ -34,6 +35,7 @@ public class LoginWindowController extends BaseController {
         switch (loginResult) {
             case SUCCESS:
                 viewFactory.showMainWindow();
+                closeLoginWindow();
                 break;
             case FAILED_BY_CREDENTIALS:
                 errorTextField.setText("Incorrect email address or password!");
@@ -42,5 +44,10 @@ public class LoginWindowController extends BaseController {
                 errorTextField.setText("Unexpected error! Please try again later.");
                 break;
         }
+    }
+
+    private void closeLoginWindow() {
+        Stage stage = (Stage) errorTextField.getScene().getWindow();
+        viewFactory.closeStage(stage);
     }
 }
