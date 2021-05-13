@@ -2,10 +2,12 @@ package emailClient.service;
 
 import emailClient.enums.LoginResult;
 import emailClient.model.EmailAccount;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
 import javax.mail.*;
 
-public class LoginService {
+public class LoginService extends Service<LoginResult> {
 
     EmailAccount emailAccount;
 
@@ -13,7 +15,7 @@ public class LoginService {
         this.emailAccount = emailAccount;
     }
 
-    public LoginResult login() {
+    private LoginResult login() {
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -42,5 +44,15 @@ public class LoginService {
             return LoginResult.FAILED_BY_UNEXPECTED_ERROR;
         }
         return LoginResult.SUCCESS;
+    }
+
+    @Override
+    protected Task<LoginResult> createTask() {
+        return new Task<>() {
+            @Override
+            protected LoginResult call() {
+                return login();
+            }
+        };
     }
 }

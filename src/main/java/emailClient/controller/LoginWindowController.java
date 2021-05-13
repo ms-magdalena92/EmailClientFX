@@ -31,20 +31,24 @@ public class LoginWindowController extends BaseController {
         if (areLoginInputsValid()) {
             EmailAccount emailAccount = new EmailAccount(emailAddressInput.getText(), passwordInput.getText());
             LoginService loginService = new LoginService(emailAccount);
-            LoginResult loginResult = loginService.login();
+            loginService.start();
 
-            switch (loginResult) {
-                case SUCCESS:
-                    viewFactory.showMainWindow();
-                    closeLoginWindow();
-                    break;
-                case FAILED_BY_CREDENTIALS:
-                    errorTextField.setText("Incorrect email address or password!");
-                    break;
-                case FAILED_BY_UNEXPECTED_ERROR:
-                    errorTextField.setText("Unexpected error! Please try again later.");
-                    break;
-            }
+            loginService.setOnSucceeded(event -> {
+                LoginResult loginResult = loginService.getValue();
+
+                switch (loginResult) {
+                    case SUCCESS:
+                        viewFactory.showMainWindow();
+                        closeLoginWindow();
+                        break;
+                    case FAILED_BY_CREDENTIALS:
+                        errorTextField.setText("Incorrect email address or password!");
+                        break;
+                    case FAILED_BY_UNEXPECTED_ERROR:
+                        errorTextField.setText("Unexpected error! Please try again later.");
+                        break;
+                }
+            });
         }
     }
 
