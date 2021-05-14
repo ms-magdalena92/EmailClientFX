@@ -41,11 +41,11 @@ public class EmailMessage {
     }
 
     public String getSenders() {
-        return senders.toString();
+        return senders.toString().replace("[", "").replace("]", "");
     }
 
     public String getRecipients() {
-        return recipients.toString();
+        return recipients.toString().replace("[", "").replace("]", "");
     }
 
     public EmailMessageSize getSize() {
