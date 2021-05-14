@@ -20,22 +20,22 @@ public class MainWindowController extends BaseController implements Initializabl
     private TreeView<String> emailsTreeView;
 
     @FXML
-    private TableView<?> emailsTableView;
+    private TableView<EmailMessage> emailsTableView;
 
     @FXML
-    private TableColumn<?, ?> senderColumn;
+    private TableColumn<EmailMessage, String> sendersColumn;
 
     @FXML
-    private TableColumn<?, ?> subjectColumn;
+    private TableColumn<EmailMessage, String> subjectColumn;
 
     @FXML
-    private TableColumn<?, ?> recipientColumn;
+    private TableColumn<EmailMessage, String> recipientsColumn;
 
     @FXML
-    private TableColumn<?, ?> sizeColumn;
+    private TableColumn<EmailMessage, EmailMessageSize> sizeColumn;
 
     @FXML
-    private TableColumn<?, ?> dateColumn;
+    private TableColumn<EmailMessage, Date> dateColumn;
 
     @FXML
     private WebView emailWebView;
