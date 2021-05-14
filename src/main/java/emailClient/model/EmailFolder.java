@@ -46,6 +46,6 @@ public class EmailFolder extends TreeItem<String> {
     }
 
     public void updateFolderName() {
-        this.name = (unreadMessagesCount > 0) ? this.name + "(" + unreadMessagesCount + ")" : this.name;
+        this.setValue((unreadMessagesCount > 0) ? this.name + " (" + unreadMessagesCount + ")" : this.name);
     }
 }
