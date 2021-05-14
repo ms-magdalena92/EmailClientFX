@@ -5,6 +5,7 @@ import emailClient.model.EmailFolder;
 import emailClient.model.EmailMessage;
 import emailClient.model.EmailMessageSize;
 import emailClient.service.EmailManager;
+import emailClient.service.MessageRendererService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -20,6 +21,8 @@ import java.util.ResourceBundle;
 public class MainWindowController extends BaseController implements Initializable {
 
     private static final String MAIN_VIEW_FILE_NAME = "mainWindow.fxml";
+
+    private MessageRendererService messageRendererService;
 
     @FXML
     private TreeView<String> emailsTreeView;
@@ -54,6 +57,7 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpEmailsTree();
         setUpEmailsTable();
         setUpSelectedFolder();
+        setUpMessageSelection();
     }
 
     private void setUpEmailsTree() {
@@ -74,6 +78,18 @@ public class MainWindowController extends BaseController implements Initializabl
             EmailFolder folder = (EmailFolder) emailsTreeView.getSelectionModel().getSelectedItem();
             if (folder != null) {
                 emailsTableView.setItems(folder.getMessages());
+            }
+        });
+    }
+
+    private void setUpMessageSelection() {
+        messageRendererService = new MessageRendererService(emailWebView.getEngine());
+
+        emailsTableView.setOnMouseClicked(event -> {
+            EmailMessage emailMessage = emailsTableView.getSelectionModel().getSelectedItem();
+            if (emailMessage != null) {
+                messageRendererService.setEmailMessage(emailMessage);
+                messageRendererService.restart();
             }
         });
     }
