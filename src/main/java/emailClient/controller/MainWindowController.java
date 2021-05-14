@@ -1,15 +1,20 @@
 package emailClient.controller;
 
 import emailClient.factory.ViewFactory;
+import emailClient.model.EmailFolder;
+import emailClient.model.EmailMessage;
+import emailClient.model.EmailMessageSize;
 import emailClient.service.EmailManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
@@ -46,11 +51,30 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setUpEmailsTreeView();
+        setUpEmailsTree();
+        setUpEmailsTable();
+        setUpSelectedFolder();
     }
 
-    private void setUpEmailsTreeView() {
+    private void setUpEmailsTree() {
         emailsTreeView.setRoot(emailManager.getFoldersRoot());
         emailsTreeView.setShowRoot(false);
+    }
+
+    private void setUpEmailsTable() {
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        sendersColumn.setCellValueFactory((new PropertyValueFactory<>("senders")));
+        recipientsColumn.setCellValueFactory(new PropertyValueFactory<>("recipients"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+    }
+
+    private void setUpSelectedFolder() {
+        emailsTreeView.setOnMouseClicked(e -> {
+            EmailFolder folder = (EmailFolder) emailsTreeView.getSelectionModel().getSelectedItem();
+            if (folder != null) {
+                emailsTableView.setItems(folder.getMessages());
+            }
+        });
     }
 }
