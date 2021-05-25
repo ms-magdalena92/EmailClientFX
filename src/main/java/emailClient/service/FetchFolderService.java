@@ -5,8 +5,11 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import javax.mail.Folder;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Store;
+import javax.mail.event.MessageCountEvent;
+import javax.mail.event.MessageCountListener;
 
 public class FetchFolderService extends Service<Void> {
 
@@ -42,12 +45,32 @@ public class FetchFolderService extends Service<Void> {
             foldersRoot.setExpanded(true);
 
             fetchFoldersMessages(folder, emailFolder);
+            addMessageListenerToFolder(folder, emailFolder);
 
             if(folder.getType() == Folder.HOLDS_FOLDERS) {
                 Folder[] subFolders =  folder.list();
                 handleFolders(subFolders, emailFolder);
             }
         }
+    }
+
+    private void addMessageListenerToFolder(Folder folder, EmailFolder emailFolder) {
+        folder.addMessageCountListener(new MessageCountListener() {
+            @Override
+            public void messagesAdded(MessageCountEvent e) {
+                for (int i = 0; i < e.getMessages().length; i++) {
+                    try {
+                        Message message = folder.getMessage(folder.getMessageCount() - i);
+                        emailFolder.addMessageToTheTop(message);
+                    } catch (MessagingException messagingException) {
+                        messagingException.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void messagesRemoved(MessageCountEvent e) {}
+        });
     }
 
     private void fetchFoldersMessages(Folder folder, EmailFolder emailFolder) {

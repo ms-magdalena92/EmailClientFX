@@ -48,4 +48,9 @@ public class EmailFolder extends TreeItem<String> {
     public void updateFolderName() {
         this.setValue((unreadMessagesCount > 0) ? this.name + " (" + unreadMessagesCount + ")" : this.name);
     }
+
+    public void addMessageToTheTop(Message message) throws MessagingException {
+        EmailMessage emailMessage = transformToEmailMessage(message);
+        messages.add(0, emailMessage);
+    }
 }
