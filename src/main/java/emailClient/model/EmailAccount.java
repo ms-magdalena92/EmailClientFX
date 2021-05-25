@@ -2,6 +2,7 @@ package emailClient.model;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
+import javax.mail.Session;
 import javax.mail.Store;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
@@ -12,6 +13,7 @@ public class EmailAccount {
     private final String password;
     private Properties properties;
     private Store store;
+    private Session session;
 
     public EmailAccount(String emailAddress, String password) {
         this.emailAddress = emailAddress;
@@ -22,6 +24,14 @@ public class EmailAccount {
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Session getSession() {
+        return session;
     }
 
     public void setStore(Store store) {
@@ -58,5 +68,10 @@ public class EmailAccount {
         sf.setTrustAllHosts(true);
         properties.put("mail.imaps.ssl.trust", "*");
         properties.put("mail.imaps.ssl.socketFactory", sf);
+    }
+
+    @Override
+    public String toString() {
+        return emailAddress;
     }
 }
