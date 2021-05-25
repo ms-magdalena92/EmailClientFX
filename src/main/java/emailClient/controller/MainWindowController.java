@@ -52,6 +52,11 @@ public class MainWindowController extends BaseController implements Initializabl
         super(viewFactory, emailManager, MAIN_VIEW_FILE_NAME);
     }
 
+    @FXML
+    void composeMessage() {
+        viewFactory.showNewMessageWindow();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpEmailsTree();

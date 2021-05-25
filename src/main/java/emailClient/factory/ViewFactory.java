@@ -4,6 +4,7 @@ import emailClient.App;
 import emailClient.controller.BaseController;
 import emailClient.controller.LoginWindowController;
 import emailClient.controller.MainWindowController;
+import emailClient.controller.NewMessageController;
 import emailClient.service.EmailManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,6 +29,11 @@ public class ViewFactory {
     public void showMainWindow() {
         BaseController controller = new MainWindowController(this, emailManager);
         initializeStage(controller, true);
+    }
+
+    public void showNewMessageWindow() {
+        BaseController controller = new NewMessageController(this, emailManager);
+        initializeStage(controller, false);
     }
 
     private void initializeStage(BaseController baseController, boolean resizable) {
