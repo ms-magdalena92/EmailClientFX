@@ -10,6 +10,7 @@ import javax.mail.MessagingException;
 import javax.mail.Store;
 import javax.mail.event.MessageCountEvent;
 import javax.mail.event.MessageCountListener;
+import java.util.List;
 
 public class FetchFolderService extends Service<Void> {
 
@@ -17,9 +18,12 @@ public class FetchFolderService extends Service<Void> {
 
     private final EmailFolder foldersRoot;
 
-    public FetchFolderService(Store store, EmailFolder foldersRoot) {
+    private final List<Folder> folderList;
+
+    public FetchFolderService(Store store, EmailFolder foldersRoot, List<Folder> folderList) {
         this.store = store;
         this.foldersRoot = foldersRoot;
+        this.folderList = folderList;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class FetchFolderService extends Service<Void> {
 
     private void handleFolders(Folder[] folders, EmailFolder foldersRoot) throws MessagingException {
         for (Folder folder : folders) {
+            folderList.add(folder);
             EmailFolder emailFolder = new EmailFolder(folder.getName());
             foldersRoot.getChildren().add(emailFolder);
             foldersRoot.setExpanded(true);
@@ -47,8 +52,8 @@ public class FetchFolderService extends Service<Void> {
             fetchFoldersMessages(folder, emailFolder);
             addMessageListenerToFolder(folder, emailFolder);
 
-            if(folder.getType() == Folder.HOLDS_FOLDERS) {
-                Folder[] subFolders =  folder.list();
+            if (folder.getType() == Folder.HOLDS_FOLDERS) {
+                Folder[] subFolders = folder.list();
                 handleFolders(subFolders, emailFolder);
             }
         }
@@ -69,7 +74,8 @@ public class FetchFolderService extends Service<Void> {
             }
 
             @Override
-            public void messagesRemoved(MessageCountEvent e) {}
+            public void messagesRemoved(MessageCountEvent e) {
+            }
         });
     }
 
