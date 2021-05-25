@@ -9,10 +9,12 @@ import emailClient.service.MessageRendererService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.Date;
@@ -63,6 +65,7 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpEmailsTable();
         setUpSelectedFolder();
         setUpMessageSelection();
+        setUpBoldRows();
     }
 
     private void setUpEmailsTree() {
@@ -95,6 +98,27 @@ public class MainWindowController extends BaseController implements Initializabl
             if (emailMessage != null) {
                 messageRendererService.setEmailMessage(emailMessage);
                 messageRendererService.restart();
+            }
+        });
+    }
+
+    private void setUpBoldRows() {
+        emailsTableView.setRowFactory(new Callback<>() {
+            @Override
+            public TableRow<EmailMessage> call(TableView<EmailMessage> param) {
+                return new TableRow<>() {
+                    @Override
+                    protected void updateItem(EmailMessage message, boolean empty) {
+                        super.updateItem(message, empty);
+                        if (message != null) {
+                            if (message.isRead()) {
+                                setStyle("");
+                            } else {
+                                setStyle("-fx-font-weight: bold");
+                            }
+                        }
+                    }
+                };
             }
         });
     }
