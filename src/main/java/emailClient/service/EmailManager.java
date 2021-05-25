@@ -17,10 +17,8 @@ public class EmailManager {
 
     private final List<Folder> folderList = new ArrayList<>();
 
-    private final FolderUpdaterService folderUpdaterService;
-
     public EmailManager() {
-        folderUpdaterService = new FolderUpdaterService(folderList);
+        FolderUpdaterService folderUpdaterService = new FolderUpdaterService(folderList);
         folderUpdaterService.start();
     }
 
