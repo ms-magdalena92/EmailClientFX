@@ -9,10 +9,12 @@ import emailClient.service.MessageRendererService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.Date;
@@ -63,6 +65,7 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpEmailsTable();
         setUpSelectedFolder();
         setUpMessageSelection();
+        setUpBoldRows();
     }
 
     private void setUpEmailsTree() {
@@ -82,6 +85,7 @@ public class MainWindowController extends BaseController implements Initializabl
         emailsTreeView.setOnMouseClicked(e -> {
             EmailFolder folder = (EmailFolder) emailsTreeView.getSelectionModel().getSelectedItem();
             if (folder != null) {
+                emailManager.setSelectedFolder(folder);
                 emailsTableView.setItems(folder.getMessages());
             }
         });
@@ -93,8 +97,37 @@ public class MainWindowController extends BaseController implements Initializabl
         emailsTableView.setOnMouseClicked(event -> {
             EmailMessage emailMessage = emailsTableView.getSelectionModel().getSelectedItem();
             if (emailMessage != null) {
+                setMessageRead(emailMessage);
                 messageRendererService.setEmailMessage(emailMessage);
                 messageRendererService.restart();
+            }
+        });
+    }
+
+    private void setMessageRead(EmailMessage message) {
+        emailManager.setSelectedMessage(message);
+        if (!message.isRead()) {
+            emailManager.setRead();
+        }
+    }
+
+    private void setUpBoldRows() {
+        emailsTableView.setRowFactory(new Callback<>() {
+            @Override
+            public TableRow<EmailMessage> call(TableView<EmailMessage> param) {
+                return new TableRow<>() {
+                    @Override
+                    protected void updateItem(EmailMessage message, boolean empty) {
+                        super.updateItem(message, empty);
+                        if (message != null) {
+                            if (message.isRead()) {
+                                setStyle("");
+                            } else {
+                                setStyle("-fx-font-weight: bold");
+                            }
+                        }
+                    }
+                };
             }
         });
     }
