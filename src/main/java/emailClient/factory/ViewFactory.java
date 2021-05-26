@@ -17,8 +17,14 @@ public class ViewFactory {
 
     private final EmailManager emailManager;
 
+    private boolean mainViewInitialized = false;
+
     public ViewFactory(EmailManager emailManager) {
         this.emailManager = emailManager;
+    }
+
+    public boolean isMainViewInitialized() {
+        return mainViewInitialized;
     }
 
     public void showLoginWindow() {
@@ -29,6 +35,7 @@ public class ViewFactory {
     public void showMainWindow() {
         BaseController controller = new MainWindowController(this, emailManager);
         initializeStage(controller, true);
+        mainViewInitialized = true;
     }
 
     public void showNewMessageWindow() {

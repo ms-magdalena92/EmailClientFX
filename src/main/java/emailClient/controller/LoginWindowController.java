@@ -44,7 +44,9 @@ public class LoginWindowController extends BaseController {
 
                 switch (loginResult) {
                     case SUCCESS:
-                        viewFactory.showMainWindow();
+                        if (!viewFactory.isMainViewInitialized()) {
+                            viewFactory.showMainWindow();
+                        }
                         closeLoginWindow();
                         break;
                     case FAILED_BY_CREDENTIALS:
