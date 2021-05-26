@@ -62,6 +62,11 @@ public class MainWindowController extends BaseController implements Initializabl
         viewFactory.showNewMessageWindow();
     }
 
+    @FXML
+    void addAccount() {
+        viewFactory.showLoginWindow();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpEmailsTree();
