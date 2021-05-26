@@ -19,7 +19,7 @@ public class FolderUpdaterService extends Service<Void> {
         return new Task<>() {
             @Override
             protected Void call() {
-                while (true) {
+                for (; ; ) {
                     try {
                         Thread.sleep(5000);
                         for (Folder folder : folderList) {
