@@ -1,10 +1,7 @@
 package emailClient.factory;
 
 import emailClient.App;
-import emailClient.controller.BaseController;
-import emailClient.controller.LoginWindowController;
-import emailClient.controller.MainWindowController;
-import emailClient.controller.NewMessageController;
+import emailClient.controller.*;
 import emailClient.service.EmailManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +37,11 @@ public class ViewFactory {
 
     public void showNewMessageWindow() {
         BaseController controller = new NewMessageController(this, emailManager);
+        initializeStage(controller, false);
+    }
+
+    public void showMessageDetailsWindow() {
+        BaseController controller = new MessageDetailsController(this, emailManager);
         initializeStage(controller, false);
     }
 
