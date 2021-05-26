@@ -76,4 +76,13 @@ public class EmailManager {
             e.printStackTrace();
         }
     }
+
+    public void deleteSelectedMessage() {
+        try {
+            selectedMessage.getMessage().setFlag(Flags.Flag.DELETED, true);
+            selectedFolder.getMessages().remove(selectedMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
