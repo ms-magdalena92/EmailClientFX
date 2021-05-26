@@ -66,4 +66,14 @@ public class EmailManager {
             e.printStackTrace();
         }
     }
+
+    public void setUnread() {
+        try {
+            selectedMessage.setRead(false);
+            selectedMessage.getMessage().setFlag(Flags.Flag.SEEN, false);
+            selectedFolder.incrementUnreadMessagesCount();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }

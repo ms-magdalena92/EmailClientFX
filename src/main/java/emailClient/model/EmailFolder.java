@@ -40,7 +40,7 @@ public class EmailFolder extends TreeItem<String> {
         return emailMessage;
     }
 
-    private void incrementUnreadMessagesCount() {
+    public void incrementUnreadMessagesCount() {
         unreadMessagesCount++;
         updateFolderName();
     }

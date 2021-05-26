@@ -8,10 +8,7 @@ import emailClient.service.EmailManager;
 import emailClient.service.MessageRendererService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
@@ -25,6 +22,8 @@ public class MainWindowController extends BaseController implements Initializabl
     private static final String MAIN_VIEW_FILE_NAME = "mainWindow.fxml";
 
     private MessageRendererService messageRendererService;
+
+    private final MenuItem markMessageAsUnread;
 
     @FXML
     private TreeView<String> emailsTreeView;
@@ -52,6 +51,7 @@ public class MainWindowController extends BaseController implements Initializabl
 
     public MainWindowController(ViewFactory viewFactory, EmailManager emailManager) {
         super(viewFactory, emailManager, MAIN_VIEW_FILE_NAME);
+        this.markMessageAsUnread = new MenuItem("mark as unread");
     }
 
     @FXML
@@ -66,6 +66,7 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpSelectedFolder();
         setUpMessageSelection();
         setUpBoldRows();
+        setUpContextMenu();
     }
 
     private void setUpEmailsTree() {
@@ -79,6 +80,7 @@ public class MainWindowController extends BaseController implements Initializabl
         recipientsColumn.setCellValueFactory(new PropertyValueFactory<>("recipients"));
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        emailsTableView.setContextMenu(new ContextMenu(markMessageAsUnread));
     }
 
     private void setUpSelectedFolder() {
@@ -130,5 +132,9 @@ public class MainWindowController extends BaseController implements Initializabl
                 };
             }
         });
+    }
+
+    private void setUpContextMenu() {
+        markMessageAsUnread.setOnAction(event -> emailManager.setUnread());
     }
 }
