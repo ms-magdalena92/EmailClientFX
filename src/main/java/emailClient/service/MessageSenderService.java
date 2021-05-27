@@ -19,10 +19,15 @@ import java.util.List;
 public class MessageSenderService extends Service<EmailSendingResult> {
 
     private MimeMessage message;
+
     private final EmailAccount emailAccount;
+
     private final String subject;
+
     private final String recipient;
+
     private final String content;
+
     private final List<File> attachments;
 
     public MessageSenderService(EmailAccount emailAccount, String subject, String recipient, String content, List<File> attachments) {
