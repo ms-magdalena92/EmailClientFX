@@ -52,6 +52,7 @@ public class MessageRendererService extends Service<Void> {
 
     private void loadMessage() throws MessagingException, IOException {
         stringBuffer.setLength(0);
+        emailMessage.clearAttachments();
         Message message = emailMessage.getMessage();
 
         String contentType = message.getContentType();

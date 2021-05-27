@@ -25,7 +25,7 @@ public class EmailMessage {
 
     private boolean isRead;
 
-    private List<MimeBodyPart> attachments = new ArrayList<>();
+    private final List<MimeBodyPart> attachments = new ArrayList<>();
 
     private boolean hasAttachment = false;
 
@@ -84,5 +84,9 @@ public class EmailMessage {
     public void addAttachment(MimeBodyPart mimeBodyPart) {
         hasAttachment = true;
         attachments.add(mimeBodyPart);
+    }
+
+    public void clearAttachments() {
+        attachments.clear();
     }
 }
