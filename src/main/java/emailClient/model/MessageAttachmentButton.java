@@ -14,6 +14,8 @@ public class MessageAttachmentButton extends MenuButton {
 
     private final MenuItem saveAttachment = new MenuItem("save");
 
+    private final MenuItem openAttachment = new MenuItem("open");
+
     public MessageAttachmentButton(MimeBodyPart mimeBodyPart) throws MessagingException {
         this.mimeBodyPart = mimeBodyPart;
         createMenuButton();
@@ -22,7 +24,7 @@ public class MessageAttachmentButton extends MenuButton {
 
     private void createMenuButton() throws MessagingException {
         this.setText(mimeBodyPart.getFileName());
-        this.getItems().add(saveAttachment);
+        this.getItems().addAll(saveAttachment, openAttachment);
     }
 
     private void setUpAttachmentMenu() {
@@ -31,6 +33,13 @@ public class MessageAttachmentButton extends MenuButton {
             saveAttachment.setOnAction(event -> {
                 try {
                     attachmentHandler.saveAttachmentToDisc();
+                } catch (MessagingException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            openAttachment.setOnAction(event -> {
+                try {
+                    attachmentHandler.openAttachment();
                 } catch (MessagingException | IOException e) {
                     e.printStackTrace();
                 }
