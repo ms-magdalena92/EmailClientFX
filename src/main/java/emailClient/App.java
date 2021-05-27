@@ -26,10 +26,11 @@ public class App extends Application {
 
         validAccountCredentials = accountPersistenceHandler.loadFromPersistence();
         if (validAccountCredentials.size() > 0) {
+            emailManager.setRememberCredentials(true);
             viewFactory.showMainWindow();
             addEmailAccountsToView();
         } else {
-            viewFactory.showLoginWindow();
+            viewFactory.showLoginWindow(false);
         }
     }
 
@@ -44,11 +45,13 @@ public class App extends Application {
 
     @Override
     public void stop() {
-        List<ValidAccountCredentials> validAccountList = new ArrayList<>();
-        for (EmailAccount emailAccount : emailManager.getEmailAccounts()) {
-            validAccountList.add(new ValidAccountCredentials(emailAccount.getEmailAddress(), emailAccount.getPassword()));
+        if (emailManager.isRememberCredentials()) {
+            List<ValidAccountCredentials> validAccountList = new ArrayList<>();
+            for (EmailAccount emailAccount : emailManager.getEmailAccounts()) {
+                validAccountList.add(new ValidAccountCredentials(emailAccount.getEmailAddress(), emailAccount.getPassword()));
+            }
+            accountPersistenceHandler.saveToPersistence(validAccountList);
         }
-        accountPersistenceHandler.saveToPersistence(validAccountList);
     }
 
     public static void main(String[] args) {

@@ -24,8 +24,8 @@ public class ViewFactory {
         return mainViewInitialized;
     }
 
-    public void showLoginWindow() {
-        BaseController controller = new LoginWindowController(this, emailManager);
+    public void showLoginWindow(boolean disableRememberMeBox) {
+        BaseController controller = new LoginWindowController(this, emailManager, disableRememberMeBox);
         initializeStage(controller, false);
     }
 

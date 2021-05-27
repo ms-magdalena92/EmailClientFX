@@ -6,14 +6,21 @@ import emailClient.model.EmailAccount;
 import emailClient.service.EmailManager;
 import emailClient.service.LoginService;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginWindowController extends BaseController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginWindowController extends BaseController implements Initializable {
 
     private static final String LOGIN_VIEW_FILE_NAME = "loginWindow.fxml";
+
+    private final boolean disableRememberMeBox;
 
     @FXML
     private TextField emailAddressInput;
@@ -27,14 +34,23 @@ public class LoginWindowController extends BaseController {
     @FXML
     private Button loginButton;
 
-    public LoginWindowController(ViewFactory viewFactory, EmailManager emailManager) {
+    @FXML
+    private CheckBox rememberMe;
+
+    public LoginWindowController(ViewFactory viewFactory, EmailManager emailManager, boolean disableRememberMeBox) {
         super(viewFactory, emailManager, LOGIN_VIEW_FILE_NAME);
+        this.disableRememberMeBox = disableRememberMeBox;
     }
 
     @FXML
     void login() {
         if (areLoginInputsValid()) {
             loginButton.setDisable(true);
+
+            if (!rememberMe.isDisabled()) {
+                emailManager.setRememberCredentials(rememberMe.isSelected());
+            }
+
             EmailAccount emailAccount = new EmailAccount(emailAddressInput.getText(), passwordInput.getText());
             LoginService loginService = new LoginService(emailAccount, emailManager);
             loginService.start();
@@ -73,5 +89,10 @@ public class LoginWindowController extends BaseController {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        rememberMe.setDisable(disableRememberMeBox);
     }
 }
