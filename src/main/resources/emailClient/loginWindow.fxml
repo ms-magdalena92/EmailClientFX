@@ -36,12 +36,12 @@
             </font>
         </Button>
         <Label fx:id="errorTextField" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" layoutY="279.0" prefHeight="17.0" prefWidth="327.0" textAlignment="CENTER" textFill="RED" />
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="70.0" text="WELCOME TO THE EMAIL CLIENT !" textFill="#2d1d6b">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="44.0" text="WELCOME TO THE EMAIL CLIENT !" textFill="#2d1d6b">
             <font>
                 <Font name="System Bold" size="27.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="129.0" layoutY="117.0" text="Please enter your email credentials to proceed">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="127.0" layoutY="122.0" text="Please enter your email credentials to proceed">
             <font>
                 <Font size="17.0" />
             </font>
