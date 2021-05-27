@@ -4,8 +4,10 @@ import emailClient.factory.ViewFactory;
 import emailClient.model.EmailFolder;
 import emailClient.model.EmailMessage;
 import emailClient.model.EmailMessageSize;
+import emailClient.service.AccountPersistenceHandler;
 import emailClient.service.EmailManager;
 import emailClient.service.MessageRendererService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -67,7 +69,15 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     void addAccount() {
-        viewFactory.showLoginWindow();
+        viewFactory.showLoginWindow(true);
+    }
+
+    @FXML
+    void signOut() {
+        AccountPersistenceHandler accountPersistenceHandler = new AccountPersistenceHandler();
+        accountPersistenceHandler.deletePersistenceFile();
+        emailManager.setRememberCredentials(false);
+        Platform.exit();
     }
 
     @Override

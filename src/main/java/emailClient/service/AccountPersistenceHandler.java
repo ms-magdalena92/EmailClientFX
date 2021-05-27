@@ -3,6 +3,9 @@ package emailClient.service;
 import emailClient.model.ValidAccountCredentials;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +35,15 @@ public class AccountPersistenceHandler {
             objectOutputStream.close();
             fileOutputStream.close();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePersistenceFile() {
+        Path fileToDeletePath = Paths.get(VALID_ACCOUNT_CREDENTIALS_LOCATION);
+        try {
+            Files.deleteIfExists(fileToDeletePath);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
