@@ -24,6 +24,8 @@ public class EmailManager {
 
     private EmailFolder selectedFolder;
 
+    private boolean rememberCredentials;
+
     public EmailManager() {
         FolderUpdaterService folderUpdaterService = new FolderUpdaterService(folderList);
         folderUpdaterService.start();
@@ -84,5 +86,13 @@ public class EmailManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isRememberCredentials() {
+        return rememberCredentials;
+    }
+
+    public void setRememberCredentials(boolean rememberCredentials) {
+        this.rememberCredentials = rememberCredentials;
     }
 }
