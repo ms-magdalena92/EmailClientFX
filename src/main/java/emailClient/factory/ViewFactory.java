@@ -2,6 +2,7 @@ package emailClient.factory;
 
 import emailClient.App;
 import emailClient.controller.*;
+import emailClient.enums.FontSize;
 import emailClient.enums.ThemeColor;
 import emailClient.service.EmailManager;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +24,13 @@ public class ViewFactory {
 
     private final ArrayList<Stage> activeStages;
 
+    private FontSize fontSize;
+
     public ViewFactory(EmailManager emailManager) {
         this.emailManager = emailManager;
         this.themeColor = ThemeColor.DEFAULT;
         activeStages = new ArrayList<>();
+        this.fontSize = FontSize.MEDIUM;
     }
 
     public ThemeColor getThemeColor() {
@@ -35,6 +39,14 @@ public class ViewFactory {
 
     public void setThemeColor(ThemeColor themeColor) {
         this.themeColor = themeColor;
+    }
+
+    public FontSize getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(FontSize fontSize) {
+        this.fontSize = fontSize;
     }
 
     public boolean isMainViewInitialized() {
