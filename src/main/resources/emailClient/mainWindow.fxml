@@ -32,7 +32,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <TreeView fx:id="emailsTreeView" layoutY="53.0" prefHeight="648.0" prefWidth="246.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="53.0" />
+        <TreeView fx:id="emailsTreeView" layoutY="73.0" prefHeight="628.0" prefWidth="246.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="73.0" />
         <TableView fx:id="emailsTableView" layoutX="246.0" layoutY="29.0" prefHeight="190.0" prefWidth="809.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
             <columns>
                 <TableColumn fx:id="sendersColumn" text="Senders" />
@@ -46,6 +46,6 @@
             </columnResizePolicy>
         </TableView>
         <WebView fx:id="emailWebView" layoutX="246.0" layoutY="220.0" prefHeight="478.0" prefWidth="809.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0" />
-      <Button layoutY="29.0" maxHeight="25.0" minHeight="25.0" mnemonicParsing="false" onAction="#composeMessage" prefHeight="25.0" prefWidth="246.0" text="New Message" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0" />
+      <Button layoutY="29.0" maxHeight="44.0" minHeight="25.0" mnemonicParsing="false" onAction="#composeMessage" prefHeight="44.0" prefWidth="246.0" text="New Message" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0" />
     </children>
 </AnchorPane>
