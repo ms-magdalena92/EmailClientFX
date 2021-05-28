@@ -20,9 +20,9 @@
                         <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign out" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Settings">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Options" />
+                        <MenuItem mnemonicParsing="false" onAction="#showLayoutSettingsWindow" text="Layout" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
