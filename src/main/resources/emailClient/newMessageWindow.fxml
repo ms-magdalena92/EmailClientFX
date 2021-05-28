@@ -11,19 +11,19 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="16.0" layoutY="61.0" prefHeight="16.0" prefWidth="94.0" text="Recipients:" />
-      <Label layoutX="16.0" layoutY="96.0" prefHeight="16.0" prefWidth="94.0" text="Subject" />
-      <TextField fx:id="recipientsInput" layoutX="90.0" layoutY="56.0" prefHeight="26.0" prefWidth="590.0" />
-      <TextField fx:id="subjectInput" layoutX="90.0" layoutY="91.0" prefHeight="26.0" prefWidth="590.0" />
+      <Label layoutX="16.0" layoutY="60.0" prefHeight="16.0" prefWidth="94.0" text="Recipients:" />
+      <Label layoutX="16.0" layoutY="99.0" prefHeight="16.0" prefWidth="94.0" text="Subject" />
+      <TextField fx:id="recipientsInput" layoutX="116.0" layoutY="55.0" prefHeight="26.0" prefWidth="564.0" />
+      <TextField fx:id="subjectInput" layoutX="116.0" layoutY="94.0" prefHeight="26.0" prefWidth="564.0" />
       <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="14.0" layoutY="178.0" prefHeight="435.0" prefWidth="667.0" />
       <Button layoutX="568.0" layoutY="653.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="32.0" prefWidth="110.0" text="Send" />
       <Label fx:id="errorTextField" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="13.0" layoutY="623.0" prefHeight="17.0" prefWidth="667.0" textAlignment="RIGHT" textFill="RED">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label layoutX="16.0" layoutY="30.0" prefHeight="16.0" prefWidth="94.0" text="Account:" />
-      <ChoiceBox fx:id="emailAccountInput" layoutX="90.0" layoutY="25.0" prefHeight="26.0" prefWidth="590.0" />
+      <Label layoutX="16.0" layoutY="19.0" prefHeight="16.0" prefWidth="94.0" text="Account:" />
+      <ChoiceBox fx:id="emailAccountInput" layoutX="116.0" layoutY="14.0" prefHeight="26.0" prefWidth="564.0" />
       <Button layoutX="14.0" layoutY="135.0" mnemonicParsing="false" onAction="#addAttachment" text="Add Attachment" />
-      <HBox fx:id="attachmentList" layoutX="129.0" layoutY="135.0" prefHeight="25.0" prefWidth="551.0" />
+      <HBox fx:id="attachmentList" layoutX="171.0" layoutY="135.0" prefHeight="25.0" prefWidth="509.0" />
    </children>
 </AnchorPane>
