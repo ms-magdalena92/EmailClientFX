@@ -26,9 +26,12 @@ public class EmailManager {
 
     private boolean rememberCredentials;
 
+    private final IconsHandler iconsHandler;
+
     public EmailManager() {
         FolderUpdaterService folderUpdaterService = new FolderUpdaterService(folderList);
         folderUpdaterService.start();
+        this.iconsHandler = new IconsHandler();
     }
 
     public EmailFolder getFoldersRoot() {
@@ -50,6 +53,7 @@ public class EmailManager {
     public void addEmailAccount(EmailAccount emailAccount) {
         emailAccounts.add(emailAccount);
         EmailFolder emailFolder = new EmailFolder(emailAccount.getEmailAddress());
+        emailFolder.setGraphic(iconsHandler.getIconForFolder(emailAccount.getEmailAddress()));
         FetchFolderService fetchFolderService = new FetchFolderService(emailAccount.getStore(), emailFolder, folderList);
         fetchFolderService.start();
         foldersRoot.getChildren().add(emailFolder);

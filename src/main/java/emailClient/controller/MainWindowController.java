@@ -1,5 +1,6 @@
 package emailClient.controller;
 
+import emailClient.App;
 import emailClient.factory.ViewFactory;
 import emailClient.model.EmailFolder;
 import emailClient.model.EmailMessage;
@@ -10,18 +11,24 @@ import emailClient.service.MessageRendererService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
 
     private static final String MAIN_VIEW_FILE_NAME = "mainWindow.fxml";
+
+    private static final String NEW_MESSAGE_ICON_FILE_PATH = "icons/compose.png";
 
     private MessageRendererService messageRendererService;
 
@@ -54,6 +61,9 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     private WebView emailWebView;
+
+    @FXML
+    private Button newMessageButton;
 
     public MainWindowController(ViewFactory viewFactory, EmailManager emailManager) {
         super(viewFactory, emailManager, MAIN_VIEW_FILE_NAME);
@@ -93,6 +103,7 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpMessageSelection();
         setUpBoldRows();
         setUpContextMenu();
+        setUpIcons();
     }
 
     private void setUpEmailsTree() {
@@ -166,8 +177,14 @@ public class MainWindowController extends BaseController implements Initializabl
             emailManager.deleteSelectedMessage();
             emailWebView.getEngine().loadContent("");
         });
-        showMessageDetails.setOnAction(event -> {
-            viewFactory.showMessageDetailsWindow();
-        });
+        showMessageDetails.setOnAction(event -> viewFactory.showMessageDetailsWindow());
+    }
+
+    private void setUpIcons() {
+        ImageView imageView =
+                new ImageView(new Image(Objects.requireNonNull(App.class.getResourceAsStream(NEW_MESSAGE_ICON_FILE_PATH))));
+        imageView.setFitWidth(16);
+        imageView.setFitHeight(16);
+        newMessageButton.setGraphic(imageView);
     }
 }
