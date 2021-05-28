@@ -32,6 +32,7 @@ public class LayoutSettingsWindowController extends BaseController implements In
     @FXML
     void applyLayoutSettings() {
         viewFactory.setThemeColor(themePicker.getValue());
+        viewFactory.setFontSize(FontSize.values()[(int) (fontSizePicker.getValue())]);
         viewFactory.updateActiveStagesLayout();
     }
 

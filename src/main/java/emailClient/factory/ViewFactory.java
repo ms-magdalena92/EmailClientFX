@@ -103,6 +103,7 @@ public class ViewFactory {
     private void updateLayout(Scene scene) {
         scene.getStylesheets().clear();
         scene.getStylesheets().add(Objects.requireNonNull(App.class.getResource(themeColor.getThemeCssPath())).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(App.class.getResource(fontSize.getFontSizePath())).toExternalForm());
     }
 
     public void updateActiveStagesLayout() {
