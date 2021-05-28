@@ -20,10 +20,13 @@ public class FetchFolderService extends Service<Void> {
 
     private final List<Folder> folderList;
 
+    private final IconsHandler iconsHandler;
+
     public FetchFolderService(Store store, EmailFolder foldersRoot, List<Folder> folderList) {
         this.store = store;
         this.foldersRoot = foldersRoot;
         this.folderList = folderList;
+        this.iconsHandler = new IconsHandler();
     }
 
     @Override
@@ -46,6 +49,7 @@ public class FetchFolderService extends Service<Void> {
         for (Folder folder : folders) {
             folderList.add(folder);
             EmailFolder emailFolder = new EmailFolder(folder.getName());
+            emailFolder.setGraphic(iconsHandler.getIconForFolder(folder.getName()));
             foldersRoot.getChildren().add(emailFolder);
             foldersRoot.setExpanded(true);
 
