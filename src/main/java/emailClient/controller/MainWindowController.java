@@ -80,6 +80,11 @@ public class MainWindowController extends BaseController implements Initializabl
         Platform.exit();
     }
 
+    @FXML
+    void showLayoutSettingsWindow() {
+        viewFactory.showLayoutSettingsWindow();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpEmailsTree();

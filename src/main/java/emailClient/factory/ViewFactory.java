@@ -45,6 +45,11 @@ public class ViewFactory {
         initializeStage(controller, false);
     }
 
+    public void showLayoutSettingsWindow() {
+        BaseController controller = new LayoutSettingsWindowController(this, emailManager);
+        initializeStage(controller, false);
+    }
+
     private void initializeStage(BaseController baseController, boolean resizable) {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(baseController.getViewFxmlFileName()));
         fxmlLoader.setController(baseController);
