@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,12 +29,14 @@ public class LayoutSettingsWindowController extends BaseController implements In
 
     @FXML
     void applyLayoutSettings() {
-
+        viewFactory.setThemeColor(themePicker.getValue());
+        viewFactory.updateActiveStagesLayout();
     }
 
     @FXML
     void cancelLayoutSettings() {
-
+        Stage stage = (Stage) themePicker.getScene().getWindow();
+        viewFactory.closeStage(stage);
     }
 
     @Override
@@ -43,5 +46,6 @@ public class LayoutSettingsWindowController extends BaseController implements In
 
     private void setUpThemePicker() {
         themePicker.setItems(FXCollections.observableArrayList(ThemeColor.values()));
+        themePicker.setValue(viewFactory.getThemeColor());
     }
 }

@@ -2,6 +2,7 @@ package emailClient.factory;
 
 import emailClient.App;
 import emailClient.controller.*;
+import emailClient.enums.ThemeColor;
 import emailClient.service.EmailManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ViewFactory {
 
@@ -16,8 +19,22 @@ public class ViewFactory {
 
     private boolean mainViewInitialized = false;
 
+    private ThemeColor themeColor;
+
+    private final ArrayList<Stage> activeStages;
+
     public ViewFactory(EmailManager emailManager) {
         this.emailManager = emailManager;
+        this.themeColor = ThemeColor.DEFAULT;
+        activeStages = new ArrayList<>();
+    }
+
+    public ThemeColor getThemeColor() {
+        return themeColor;
+    }
+
+    public void setThemeColor(ThemeColor themeColor) {
+        this.themeColor = themeColor;
     }
 
     public boolean isMainViewInitialized() {
@@ -63,10 +80,24 @@ public class ViewFactory {
         }
 
         Scene scene = new Scene(parent);
+        updateLayout(scene);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(resizable);
         stage.show();
+        activeStages.add(stage);
+    }
+
+    private void updateLayout(Scene scene) {
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(Objects.requireNonNull(App.class.getResource(themeColor.getThemeCssPath())).toExternalForm());
+    }
+
+    public void updateActiveStagesLayout() {
+        for (Stage stage : activeStages) {
+            Scene scene = stage.getScene();
+            updateLayout(scene);
+        }
     }
 
     public void closeStage(Stage stage) {
