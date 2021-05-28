@@ -46,6 +46,7 @@
             </columnResizePolicy>
         </TableView>
         <WebView fx:id="emailWebView" layoutX="246.0" layoutY="220.0" prefHeight="478.0" prefWidth="809.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0" />
-      <Button layoutY="29.0" maxHeight="44.0" minHeight="25.0" mnemonicParsing="false" onAction="#composeMessage" prefHeight="44.0" prefWidth="246.0" text="New Message" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0" />
+      <Button fx:id="newMessageButton" layoutY="29.0" maxHeight="44.0" minHeight="25.0" mnemonicParsing="false"
+              onAction="#composeMessage" prefHeight="44.0" prefWidth="246.0" text="New Message" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0" />
     </children>
 </AnchorPane>
